@@ -16,6 +16,7 @@ private:
 
   void slide();
   void create_board();
+  // view is automatically opened
   void open_view();
 };
 
