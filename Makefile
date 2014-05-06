@@ -9,7 +9,7 @@ LDFLAGS = -pedantic -Wall
 # erase files command
 RM = rm -f
 # list of object files
-OBJS = main.o Controller.o Model.o Board.o
+OBJS = main.o Controller.o
 # list of dependency files
 DEPS = $(OBJS:.o=.d)
 # executable name

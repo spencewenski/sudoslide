@@ -1,11 +1,11 @@
 #ifndef CONTROLLER_H
-#define CONTROLLER_H
+#define CONTROLLER_H 1
 
 class Controller {
 public:
-  void run() {}
+  Controller();
+  void run();
 private:
 };
-
 
 #endif /*CONTROLLER_H*/
