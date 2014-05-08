@@ -1,7 +1,7 @@
 #include "Model.h"
 #include "Utility.h"
 
-Model& Model::get_instance()
+Model& Model::get()
 {
   static Model model;
   return model;
@@ -37,6 +37,18 @@ void Model::remove_board(int id)
   assert((!does_board_exist(id), "Board does not exist!"));
   boards.erase(id);
 }
+
+void Model::notify_col(int col_num, int slide_amount, std::vector<int> col)
+{
+
+}
+
+void Model::notify_row(int row_num, int slide_amount, std::vector<int> row)
+{
+
+}
+
+
 
 void Model::attach_view(std::string name, View_ptr_t view_ptr)
 {

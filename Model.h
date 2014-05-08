@@ -13,7 +13,7 @@ class Model {
   using Board_ptr_t = std::shared_ptr<Board>;
   using View_ptr_t = std::shared_ptr<View>;
 public:
-  static Model& get_instance();
+  static Model& get();
 
   int get_next_board_id();
   bool does_board_exist(int id);
@@ -21,8 +21,8 @@ public:
   void add_board(int id, Board_ptr_t board_ptr);
   void remove_board(int id);
 
-  void notify_row(std::vector<int> row);
-  void notify_col(std::vector<int> col);
+  void notify_col(int col_num, int slide_amount, std::vector<int> col);
+  void notify_row(int row_num, int slide_amount, std::vector<int> row);
 
   void attach_view(std::string name, View_ptr_t view_ptr);
   void detach_view(std::string name);

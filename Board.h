@@ -18,13 +18,14 @@ public:
   void print_board();
 private:
   using Square_ptr_t = std::shared_ptr<Square>;
-  using Row_t = std::vector<Square_ptr_t>;
-  using Board_graph_t = std::vector<Row_t>;
+  using Square_vector_t = std::vector<Square_ptr_t>;
+  using Board_graph_t = std::vector<Square_vector_t>;
 
   int size;
   Board_graph_t board;
 
   int convert_neg_to_pos(int neg_val);
+  std::vector<int> Square_vector_to_int_vector(Square_vector_t square_vector);
 };
 
 #endif /*BOARD_H*/
