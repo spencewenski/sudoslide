@@ -14,7 +14,8 @@ private:
 
   Command_map_t commands;
 
-  void slide();
+  void slide_col();
+  void slide_row();
   void add_board();
   // view is automatically opened
   void open_view();

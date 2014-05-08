@@ -10,10 +10,12 @@ class Board {
 public:
   Board(int size_);
 
-  void col_slide(int col_num, int slide_amount);
-  void row_slide(int row_num, int slide_amount);
+  void slide_col(int col_num, int slide_amount);
+  void slide_row(int row_num, int slide_amount);
   void scramble_board();
   
+  // debugging
+  void print_board();
 private:
   using Square_ptr_t = std::shared_ptr<Square>;
   using Row_t = std::vector<Square_ptr_t>;
@@ -21,7 +23,8 @@ private:
 
   int size;
   Board_graph_t board;
-  
+
+  int convert_neg_to_pos(int neg_val);
 };
 
 #endif /*BOARD_H*/
