@@ -31,3 +31,21 @@ void Model::add_board(int id, Board_ptr_t board_ptr)
   assert((!does_board_exist(id), "Board already exists!"));
   boards[id] = board_ptr;
 }
+
+void Model::remove_board(int id)
+{
+  assert((!does_board_exist(id), "Board does not exist!"));
+  boards.erase(id);
+}
+
+void Model::attach_view(std::string name, View_ptr_t view_ptr)
+{
+  views[name] = view_ptr;
+}
+
+void Model::detach_view(std::string name)
+{
+  views.erase(name);
+}
+
+

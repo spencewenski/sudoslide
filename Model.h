@@ -6,9 +6,11 @@
 #include <memory>
 
 class Board;
+class View;
 
 class Model {
   using Board_ptr_t = std::shared_ptr<Board>;
+  using View_ptr_t = std::shared_ptr<View>;
 public:
   static Model& get_instance();
 
@@ -16,10 +18,17 @@ public:
   bool does_board_exist(int id);
   Board_ptr_t get_board(int id);
   void add_board(int id, Board_ptr_t board_ptr);
+  void remove_board(int id);
+
+  void attach_view(std::string name, View_ptr_t view_ptr);
+  void detach_view(std::string name);
+
 private:
   using Board_map_t = std::map<int, Board_ptr_t>;
+  using View_map_t = std::map<std::string, View_ptr_t>;
 
   Board_map_t boards;
+  View_map_t views;
   int board_count{};
 
   Model() {}
