@@ -11,6 +11,7 @@ public:
   void col_slide(int col_num, int slide_amount);
   void row_slide(int row_num, int slide_amount);
   void scramble_board();
+  
 private:
   using Square_ptr_t = std::shared_ptr<Square>;
   using Row_t = std::vector<Square_ptr_t>;
