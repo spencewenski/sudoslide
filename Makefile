@@ -1,7 +1,7 @@
 # compiler
-CC = g++-4.8
+CC = g++
 # linker
-LD = g++-4.8
+LD = g++
 # compiler flags
 CFLAGS = -std=c++11 -Wall -Wextra -pedantic -Wvla -c
 # linker flags
