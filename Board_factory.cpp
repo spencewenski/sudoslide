@@ -4,7 +4,7 @@
 using std::make_shared;
 using std::shared_ptr;
 
-shared_ptr<Board> create_board()
+shared_ptr<Board> create_board(int size)
 {
-  return make_shared<Board>();
+  return make_shared<Board>(size);
 }

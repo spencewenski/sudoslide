@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include <memory>
+#include <vector>
 
 class Board;
 class View;
@@ -19,6 +20,9 @@ public:
   Board_ptr_t get_board(int id);
   void add_board(int id, Board_ptr_t board_ptr);
   void remove_board(int id);
+
+  void notify_row(std::vector<int> row);
+  void notify_col(std::vector<int> col);
 
   void attach_view(std::string name, View_ptr_t view_ptr);
   void detach_view(std::string name);

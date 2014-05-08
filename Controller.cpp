@@ -1,15 +1,19 @@
 #include "Controller.h"
 #include "Utility.h"
+#include "Model.h"
+#include "Board_factory.h"
 #include <iostream>
 #include <string>
 
 using std::cout; using std::endl; using std::cin;
 using std::string;
 
+const int default_board_size = 4;
+
 Controller::Controller()
 {
   commands["slide"] = &Controller::slide;
-  commands["add_board"] = &Controller::create_board;
+  commands["add_board"] = &Controller::add_board;
 }
 
 void Controller::run()
@@ -51,7 +55,9 @@ void Controller::slide()
 
 }
 
-void Controller::create_board()
+void Controller::add_board()
 {
-
+  int board_id = Model::get_instance().get_next_board_id();
+  auto board_ptr = create_board(default_board_size);
+  Model::get_instance().add_board(board_id, board_ptr);
 }
