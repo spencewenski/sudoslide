@@ -3,11 +3,14 @@
 #include "Model.h"
 #include "Board.h"
 #include "Board_factory.h"
+#include "View.h"
+#include "View_board_list.h"
 #include <iostream>
 #include <string>
 
 using std::cout; using std::endl; using std::cin;
 using std::string;
+using std::make_shared;
 
 const int default_board_size_c = 4;
 
@@ -18,6 +21,7 @@ Controller::Controller()
   commands["slide_col"] = &Controller::slide_col;
   commands["slide_row"] = &Controller::slide_row;
   commands["add_board"] = &Controller::add_board;
+  commands["show"] = &Controller::show;
 }
 
 void Controller::run()
@@ -75,8 +79,24 @@ void Controller::slide_row()
 void Controller::add_board()
 {
   int board_id = Model::get().get_next_board_id();
-  auto board_ptr = create_board(default_board_size_c);
+  auto board_ptr = create_board(board_id, default_board_size_c);
   Model::get().add_board(board_id, board_ptr);
+  open_list_view();
+}
+
+void Controller::open_list_view()
+{
+  if (views.find("list_view") != views.end())
+    return;
+  auto view_ptr = make_shared<View_board_list>();
+  views["list_view"] = view_ptr;
+  Model::get().attach_view(view_ptr);
+}
+
+void Controller::show()
+{
+  for (auto view : views)
+    view.second->draw();
 }
 
 int read_int()

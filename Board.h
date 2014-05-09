@@ -8,12 +8,13 @@ struct Square;
 
 class Board {
 public:
-  Board(int size_);
+  Board(int id_, int size_);
 
   void slide_col(int col_num, int slide_amount);
   void slide_row(int row_num, int slide_amount);
   void scramble_board();
   
+  void broadcast_info();
   // debugging
   void print_board();
 private:
@@ -21,6 +22,7 @@ private:
   using Square_vector_t = std::vector<Square_ptr_t>;
   using Board_graph_t = std::vector<Square_vector_t>;
 
+  int id;
   int size;
   Board_graph_t board;
 

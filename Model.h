@@ -3,6 +3,7 @@
 
 #include <string>
 #include <map>
+#include <set>
 #include <memory>
 #include <vector>
 
@@ -21,15 +22,16 @@ public:
   void add_board(int id, Board_ptr_t board_ptr);
   void remove_board(int id);
 
-  void notify_col(int col_num, int slide_amount, std::vector<int> col);
-  void notify_row(int row_num, int slide_amount, std::vector<int> row);
+  void notify_col(int id, int col_num, int slide_amount, std::vector<int> col);
+  void notify_row(int id, int row_num, int slide_amount, std::vector<int> row);
+  void notify_board(int id, int size);
 
-  void attach_view(std::string name, View_ptr_t view_ptr);
-  void detach_view(std::string name);
+  void attach_view(View_ptr_t view_ptr);
+  void detach_view(View_ptr_t view_ptr);
 
 private:
   using Board_map_t = std::map<int, Board_ptr_t>;
-  using View_map_t = std::map<std::string, View_ptr_t>;
+  using View_map_t = std::set<View_ptr_t>;
 
   Board_map_t boards;
   View_map_t views;

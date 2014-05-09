@@ -12,18 +12,9 @@ struct Square {
   int num;
 };
 
-void Board::print_board()
-{
-  for (const auto& row : board) {
-    for (const auto square_ptr : row) {
-      cout << std::setw(2) << square_ptr->num << ' ';
-    }
-    cout << endl;
-  }
-}
 
-Board::Board(int size_)
-: size{size_}, board(size)
+Board::Board(int id_, int size_)
+: id{id_}, size{size_}, board(size)
 {
   int count{};
   for (int i = 0; i < size; ++i) {
@@ -48,7 +39,7 @@ void Board::slide_col(int col_num, int slide_amount)
     board[i][col_num] = new_col[i];
   }
 
-  Model::get().notify_row(col_num, slide_amount, 
+  Model::get().notify_row(id, col_num, slide_amount, 
     Square_vector_to_int_vector(new_col));
 
   cout << "After:" << endl;
@@ -67,7 +58,7 @@ void Board::slide_row(int row_num, int slide_amount)
   }
   board[row_num] = new_row;
 
-  Model::get().notify_row(row_num, slide_amount, 
+  Model::get().notify_row(id, row_num, slide_amount, 
     Square_vector_to_int_vector(new_row));
 
   cout << "After:" << endl;
@@ -91,4 +82,20 @@ int Board::convert_neg_to_pos(int neg_val)
 void Board::scramble_board()
 {
   
+}
+
+void Board::broadcast_info()
+{
+  Model::get().notify_board(id, size);
+}
+
+
+void Board::print_board()
+{
+  for (const auto& row : board) {
+    for (const auto square_ptr : row) {
+      cout << std::setw(2) << square_ptr->num << ' ';
+    }
+    cout << endl;
+  }
 }

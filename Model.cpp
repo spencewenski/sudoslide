@@ -1,6 +1,10 @@
 #include "Model.h"
 #include "Utility.h"
 
+#include <algorithm>
+
+using std::for_each;
+
 Model& Model::get()
 {
   static Model model;
@@ -38,26 +42,28 @@ void Model::remove_board(int id)
   boards.erase(id);
 }
 
-void Model::notify_col(int col_num, int slide_amount, std::vector<int> col)
+void Model::notify_col(int /*id*/, int /*col_num*/, int /*slide_amount*/, std::vector<int> /*col*/)
 {
 
 }
 
-void Model::notify_row(int row_num, int slide_amount, std::vector<int> row)
+void Model::notify_row(int /*id*/, int /*row_num*/, int /*slide_amount*/, std::vector<int> /*row*/)
 {
 
 }
 
 
 
-void Model::attach_view(std::string name, View_ptr_t view_ptr)
+void Model::attach_view(View_ptr_t view_ptr)
 {
-  views[name] = view_ptr;
+  views.insert(view_ptr);
+  // add bind
+  for_each(boards.begin(), boards.end(), &Board::broadcast_board);
 }
 
-void Model::detach_view(std::string name)
+void Model::detach_view(View_ptr_t view_ptr)
 {
-  views.erase(name);
+  views.erase(view_ptr);
 }
 
 
