@@ -14,7 +14,7 @@ public:
   void slide_row(int row_num, int slide_amount);
   void scramble_board();
   
-  void broadcast_info();
+  void broadcast_board();
   // debugging
   void print_board();
 private:

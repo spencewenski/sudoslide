@@ -84,7 +84,7 @@ void Board::scramble_board()
   
 }
 
-void Board::broadcast_info()
+void Board::broadcast_board()
 {
   Model::get().notify_board(id, size);
 }

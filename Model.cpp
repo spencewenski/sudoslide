@@ -1,9 +1,11 @@
 #include "Model.h"
 #include "Utility.h"
-
+#include "Board.h"
 #include <algorithm>
 
 using std::for_each;
+using std::bind;
+using namespace std::placeholders;
 
 Model& Model::get()
 {
@@ -52,13 +54,20 @@ void Model::notify_row(int /*id*/, int /*row_num*/, int /*slide_amount*/, std::v
 
 }
 
+void Model::notify_board(int /*id*/, int /*size*/)
+{
+  
+}
+
 
 
 void Model::attach_view(View_ptr_t view_ptr)
 {
   views.insert(view_ptr);
   // add bind
-  for_each(boards.begin(), boards.end(), &Board::broadcast_board);
+  for_each(boards.begin(), boards.end(), 
+    bind(&Board::broadcast_board,
+      bind(&Board_map_t::value_type::second, _1)));
 }
 
 void Model::detach_view(View_ptr_t view_ptr)
