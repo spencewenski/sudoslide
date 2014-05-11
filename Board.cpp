@@ -15,10 +15,6 @@ struct Square {
   int num;
 };
 
-/* use random device after debugging */
-// std::random_device rd;
-// std::mt19937 gen(rd());
-static std::mt19937 gen;
 
 Board::Board(int id_, int size_)
 : id{id_}, size{size_}, board(size)
@@ -71,6 +67,10 @@ int Board::convert_neg_to_pos(int neg_val)
 
 void Board::scramble_board()
 {
+  /* use random device after debugging */
+  // std::random_device rd;
+  // std::mt19937 gen(rd());
+  static std::mt19937 gen;
   /* number distributions */
   // distribution that decides whether to slide a row (0) or a column (1)
   std::uniform_int_distribution<> row_or_col_bool_dis(0, 1);
