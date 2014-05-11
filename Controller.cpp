@@ -80,6 +80,7 @@ void Controller::add_board()
 {
   int board_id = Model::get().get_next_board_id();
   auto board_ptr = create_board(board_id, default_board_size_c);
+  board_ptr->scramble_board();
   Model::get().add_board(board_id, board_ptr);
   open_list_view();
 }

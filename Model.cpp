@@ -38,6 +38,7 @@ void Model::add_board(int id, Board_ptr_t board_ptr)
   //   throw Error{"Board already exists!"};
   assert((!does_board_exist(id), "Board already exists!"));
   boards[id] = board_ptr;
+  board_ptr->broadcast_state();
 }
 
 void Model::remove_board(int id)
@@ -63,8 +64,6 @@ void Model::notify_state(int id, int size, vector<vector<int>> board)
   for_each(views.begin(), views.end(),
     bind(&View::update_board, _1, id, size, board));
 }
-
-
 
 void Model::attach_view(View_ptr_t view_ptr)
 {
