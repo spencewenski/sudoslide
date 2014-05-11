@@ -1,5 +1,5 @@
 #include "View_board_list.h"
-
+#include "Utility.h"
 #include <iostream>
 #include <iomanip>
 
@@ -13,10 +13,42 @@ void View_board_list::draw()
     cout << setw(5) << board_info.first;
     cout << setw(5) << board_info.second.size;
     cout << endl;
+    draw_board(board_info.second.board);
   }
 }
 
-void View_board_list::update_board(int id, int size)
+void View_board_list::update_row(int id, int row_num, int /*slide_amount*/, std::vector<int> row)
 {
-  board_info_map[id] = Board_info{size};
+  assert(board_info_map.find(id) != board_info_map.end());
+  auto& board = board_info_map[id].board;
+  assert(!(static_cast<int>(board.size()) < row_num));
+  assert(board.size() == row.size());
+
+  board[row_num] = row;
+}
+
+void View_board_list::update_col(int id, int col_num, int /*slide_amount*/, std::vector<int> col)
+{
+  assert(board_info_map.find(id) != board_info_map.end());
+  auto& board = board_info_map[id].board;
+  assert(!(static_cast<int>(board.size()) < col_num));
+  assert(board.size() == col.size());
+
+  for (int i = 0; i < static_cast<int>(col.size()); ++i)
+    board[i][col_num] = col[i];
+}
+
+void View_board_list::update_board(int id, int size, std::vector<std::vector<int>> board)
+{
+  board_info_map[id] = Board_info{size, board};
+}
+
+void View_board_list::draw_board(std::vector<std::vector<int>> board)
+{
+  for (const auto& row : board) {
+    for (auto square : row) {
+      cout << setw(3) << square;
+    }
+    cout << endl;
+  }
 }

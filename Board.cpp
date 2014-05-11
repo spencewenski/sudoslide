@@ -1,5 +1,6 @@
 #include "Board.h"
 #include "Model.h"
+#include "Utility.h"
 #include <iostream>
 #include <iomanip>
 using std::cout; using std::endl;
@@ -27,6 +28,8 @@ Board::Board(int id_, int size_)
 
 void Board::slide_col(int col_num, int slide_amount)
 {
+  if (col_num > size)
+    throw Error{"Column does not exist!"};
   if (slide_amount < 0)
     slide_amount = convert_neg_to_pos(slide_amount);
   cout << "Before:" << endl;
@@ -48,6 +51,8 @@ void Board::slide_col(int col_num, int slide_amount)
 
 void Board::slide_row(int row_num, int slide_amount)
 {
+  if (row_num > size)
+    throw Error{"Row does not exist!"};
   if (slide_amount < 0)
     slide_amount = convert_neg_to_pos(slide_amount);
   cout << "Before:" << endl;
@@ -65,12 +70,21 @@ void Board::slide_row(int row_num, int slide_amount)
   print_board();
 }
 
-vector<int> Board::Square_vector_to_int_vector(Square_vector_t square_vector)
+vector<int> Board::Square_vector_to_int_vector(const Square_vector_t& square_vector)
 {
   vector<int> new_vector;
   for (auto square_ptr : square_vector)
     new_vector.push_back(square_ptr->num);
   return new_vector;
+}
+
+vector<vector<int>> Board::Board_to_int_board()
+{
+  vector<vector<int>> int_board;
+  for (const auto& row : board) {
+    int_board.push_back(Square_vector_to_int_vector(row));
+  }
+  return int_board;
 }
 
 
@@ -84,9 +98,9 @@ void Board::scramble_board()
   
 }
 
-void Board::broadcast_board()
+void Board::broadcast_state()
 {
-  Model::get().notify_board(id, size);
+  Model::get().notify_state(id, size, Board_to_int_board());
 }
 
 

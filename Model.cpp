@@ -1,11 +1,13 @@
 #include "Model.h"
 #include "Utility.h"
 #include "Board.h"
+#include "View.h"
 #include <algorithm>
 
 using std::for_each;
 using std::bind;
 using namespace std::placeholders;
+using std::vector;
 
 Model& Model::get()
 {
@@ -44,19 +46,22 @@ void Model::remove_board(int id)
   boards.erase(id);
 }
 
-void Model::notify_col(int /*id*/, int /*col_num*/, int /*slide_amount*/, std::vector<int> /*col*/)
+void Model::notify_col(int id, int col_num, int slide_amount, vector<int> col)
 {
-
+  for_each(views.begin(), views.end(),
+    bind(&View::update_col, _1, id, col_num, slide_amount, col));
 }
 
-void Model::notify_row(int /*id*/, int /*row_num*/, int /*slide_amount*/, std::vector<int> /*row*/)
+void Model::notify_row(int id, int row_num, int slide_amount, vector<int> row)
 {
-
+  for_each(views.begin(), views.end(),
+    bind(&View::update_row, _1, id, row_num, slide_amount, row));
 }
 
-void Model::notify_board(int /*id*/, int /*size*/)
+void Model::notify_state(int id, int size, vector<vector<int>> board)
 {
-  
+  for_each(views.begin(), views.end(),
+    bind(&View::update_board, _1, id, size, board));
 }
 
 
@@ -66,7 +71,7 @@ void Model::attach_view(View_ptr_t view_ptr)
   views.insert(view_ptr);
   // add bind
   for_each(boards.begin(), boards.end(), 
-    bind(&Board::broadcast_board,
+    bind(&Board::broadcast_state,
       bind(&Board_map_t::value_type::second, _1)));
 }
 

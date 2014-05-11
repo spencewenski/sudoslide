@@ -24,7 +24,7 @@ public:
 
   void notify_col(int id, int col_num, int slide_amount, std::vector<int> col);
   void notify_row(int id, int row_num, int slide_amount, std::vector<int> row);
-  void notify_board(int id, int size);
+  void notify_state(int id, int size, std::vector<std::vector<int>> board);
 
   void attach_view(View_ptr_t view_ptr);
   void detach_view(View_ptr_t view_ptr);

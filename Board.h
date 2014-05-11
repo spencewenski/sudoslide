@@ -14,7 +14,7 @@ public:
   void slide_row(int row_num, int slide_amount);
   void scramble_board();
   
-  void broadcast_board();
+  void broadcast_state();
   // debugging
   void print_board();
 private:
@@ -27,7 +27,8 @@ private:
   Board_graph_t board;
 
   int convert_neg_to_pos(int neg_val);
-  std::vector<int> Square_vector_to_int_vector(Square_vector_t square_vector);
+  std::vector<int> Square_vector_to_int_vector(const Square_vector_t& square_vector);
+  std::vector<std::vector<int>> Board_to_int_board();
 };
 
 #endif /*BOARD_H*/
