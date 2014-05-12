@@ -5,6 +5,7 @@
 
 using std::cout; using std::endl;
 using std::setw;
+using std::vector;
 
 void View_board_list::draw()
 {
@@ -17,7 +18,7 @@ void View_board_list::draw()
   }
 }
 
-void View_board_list::update_row(int id, int row_num, int /*slide_amount*/, std::vector<int> row)
+void View_board_list::update_row(int id, int row_num, int /*slide_amount*/, vector<int> row)
 {
   assert(board_info_map.find(id) != board_info_map.end());
   auto& board = board_info_map[id].board;
@@ -27,7 +28,7 @@ void View_board_list::update_row(int id, int row_num, int /*slide_amount*/, std:
   board[row_num] = row;
 }
 
-void View_board_list::update_col(int id, int col_num, int /*slide_amount*/, std::vector<int> col)
+void View_board_list::update_col(int id, int col_num, int /*slide_amount*/, vector<int> col)
 {
   assert(board_info_map.find(id) != board_info_map.end());
   auto& board = board_info_map[id].board;
@@ -38,12 +39,12 @@ void View_board_list::update_col(int id, int col_num, int /*slide_amount*/, std:
     board[i][col_num] = col[i];
 }
 
-void View_board_list::update_board(int id, int size, std::vector<std::vector<int>> board)
+void View_board_list::update_board(int id, int size, vector<vector<int>> board)
 {
   board_info_map[id] = Board_info{size, board};
 }
 
-void View_board_list::draw_board(std::vector<std::vector<int>> board)
+void View_board_list::draw_board(vector<vector<int>> board)
 {
   for (const auto& row : board) {
     for (auto square : row) {
@@ -51,4 +52,9 @@ void View_board_list::draw_board(std::vector<std::vector<int>> board)
     }
     cout << endl;
   }
+}
+
+void View_board_list::update_remove(int id)
+{
+  board_info_map.erase(id);
 }

@@ -16,7 +16,6 @@ class Model {
 public:
   static Model& get();
 
-  int get_next_board_id();
   bool does_board_exist(int id);
   Board_ptr_t get_board(int id);
   void add_board(int id, Board_ptr_t board_ptr);
@@ -36,6 +35,8 @@ private:
   Board_map_t boards;
   View_map_t views;
   int board_count{};
+
+  void notify_remove(int id);
 
   Model() {}
   ~Model() {}

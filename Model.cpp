@@ -15,11 +15,6 @@ Model& Model::get()
   return model;
 }
 
-int Model::get_next_board_id()
-{
-  return board_count++;
-}
-
 bool Model::does_board_exist(int id)
 {
   return boards.find(id) != boards.end();
@@ -34,8 +29,6 @@ Model::Board_ptr_t Model::get_board(int id)
 
 void Model::add_board(int id, Board_ptr_t board_ptr)
 {
-  // if (does_board_exist())
-  //   throw Error{"Board already exists!"};
   assert((!does_board_exist(id), "Board already exists!"));
   boards[id] = board_ptr;
   board_ptr->broadcast_state();
@@ -43,8 +36,16 @@ void Model::add_board(int id, Board_ptr_t board_ptr)
 
 void Model::remove_board(int id)
 {
-  assert((!does_board_exist(id), "Board does not exist!"));
+  if (!does_board_exist(id))
+    throw Error{"Board does not exist!"};
   boards.erase(id);
+  notify_remove(id);
+}
+
+void Model::notify_remove(int id)
+{
+  for_each(views.begin(), views.end(),
+    bind(&View::update_remove, _1, id));
 }
 
 void Model::notify_col(int id, int col_num, int slide_amount, vector<int> col)

@@ -10,7 +10,8 @@ class Board {
 public:
   Board(int id_, int size_);
 
-  // implement and utilize
+  int get_id() const { return id; }
+
   bool is_solved();
 
   void slide_col(int col_num, int slide_amount);

@@ -21,6 +21,7 @@ Controller::Controller()
   commands["slide_col"] = &Controller::slide_col;
   commands["slide_row"] = &Controller::slide_row;
   commands["add_board"] = &Controller::add_board;
+  commands["remove_board"] = &Controller::remove_board;
   commands["restore_original"] = &Controller::restore_original;
   commands["show"] = &Controller::show;
   commands["open_list_view"] = &Controller::open_list_view;
@@ -81,11 +82,16 @@ void Controller::slide_row()
 
 void Controller::add_board()
 {
-  int board_id = Model::get().get_next_board_id();
-  auto board_ptr = create_board(board_id, default_board_size_c);
-  // board_ptr->scramble_board();
-  Model::get().add_board(board_id, board_ptr);
+  auto board_ptr = create_board(default_board_size_c);
+  Model::get().add_board(board_ptr->get_id(), board_ptr);
 }
+
+void Controller::remove_board()
+{
+  int board_id = read_int();
+  Model::get().remove_board(board_id);
+}
+
 
 void Controller::open_list_view()
 {

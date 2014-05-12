@@ -7,8 +7,8 @@ using std::vector;
 using std::make_shared;
 
 // debugging
-#include <iostream>
-using std::cout; using std::endl;
+// #include <iostream>
+// using std::cout; using std::endl;
 
 struct Square {
   Square(int num_) : num{num_} {}
@@ -30,6 +30,7 @@ Board::Board(int id_, int size_)
   original_board = board;
 }
 
+// !!! need to test
 bool Board::is_solved()
 {
   int count{};

@@ -5,6 +5,6 @@
 
 class Board;
 
-std::shared_ptr<Board> create_board(int id, int size);
+std::shared_ptr<Board> create_board(int size);
 
 #endif /*BOARD_FACTORY_H*/

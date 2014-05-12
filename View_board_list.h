@@ -11,6 +11,7 @@ public:
   void update_row(int id, int row_num, int slide_amount, std::vector<int> row) override;
   void update_col(int id, int col_num, int slide_amount, std::vector<int> col) override;
   void update_board(int id, int size, std::vector<std::vector<int>> board) override;
+  void update_remove(int id) override;
 private:
   struct Board_info {
     int size;
