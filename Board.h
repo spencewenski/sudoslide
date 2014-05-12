@@ -10,7 +10,7 @@ class Board {
 public:
   Board(int id_, int size_);
 
-  // implement
+  // implement and utilize
   bool is_solved() { return false; }
 
   void slide_col(int col_num, int slide_amount);
