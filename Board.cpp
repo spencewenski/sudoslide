@@ -30,6 +30,19 @@ Board::Board(int id_, int size_)
   original_board = board;
 }
 
+bool Board::is_solved()
+{
+  int count{};
+  for (const auto& row : board) {
+    for (auto square_ptr : row) {
+      if (square_ptr->num != count++)
+        return false;
+    }
+  }
+  return true;
+}
+
+
 void Board::slide_col(int col_num, int slide_amount)
 {
   auto new_col = slide_col_no_notify(col_num, slide_amount);

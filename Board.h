@@ -11,7 +11,7 @@ public:
   Board(int id_, int size_);
 
   // implement and utilize
-  bool is_solved() { return false; }
+  bool is_solved();
 
   void slide_col(int col_num, int slide_amount);
   void slide_row(int row_num, int slide_amount);
