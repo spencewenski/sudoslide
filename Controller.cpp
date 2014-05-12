@@ -21,7 +21,10 @@ Controller::Controller()
   commands["slide_col"] = &Controller::slide_col;
   commands["slide_row"] = &Controller::slide_row;
   commands["add_board"] = &Controller::add_board;
+  commands["restore_original"] = &Controller::restore_original;
   commands["show"] = &Controller::show;
+  commands["open_list_view"] = &Controller::open_list_view;
+  commands["close_list_view"] = &Controller::close_list_view;
 }
 
 void Controller::run()
@@ -80,19 +83,35 @@ void Controller::add_board()
 {
   int board_id = Model::get().get_next_board_id();
   auto board_ptr = create_board(board_id, default_board_size_c);
-  board_ptr->scramble_board();
+  // board_ptr->scramble_board();
   Model::get().add_board(board_id, board_ptr);
-  open_list_view();
 }
 
 void Controller::open_list_view()
 {
   if (views.find("list_view") != views.end())
-    return;
+    throw Error{"List view is already open!"};
   auto view_ptr = make_shared<View_board_list>();
   views["list_view"] = view_ptr;
   Model::get().attach_view(view_ptr);
 }
+
+void Controller::close_list_view()
+{
+  auto view_itr = views.find("list_view");
+  if (view_itr == views.end())
+    throw Error{"List view is not open!"};
+  Model::get().detach_view(view_itr->second);
+  views.erase(view_itr);
+}
+
+void Controller::restore_original()
+{
+  int board_id = read_int();
+  auto board_ptr = Model::get().get_board(board_id);
+  board_ptr->restore_original();
+}
+
 
 void Controller::show()
 {

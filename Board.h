@@ -10,9 +10,12 @@ class Board {
 public:
   Board(int id_, int size_);
 
+  // implement
+  bool is_solved() { return false; }
+
   void slide_col(int col_num, int slide_amount);
   void slide_row(int row_num, int slide_amount);
-  void scramble_board();
+  void restore_original();
   
   void broadcast_state();
 
@@ -24,7 +27,9 @@ private:
   int id;
   int size;
   Board_graph_t board;
+  Board_graph_t original_board;
 
+  void scramble_board();
   int convert_neg_to_pos(int neg_val);
   std::vector<int> Square_vector_to_int_vector(const Square_vector_t& square_vector);
   std::vector<std::vector<int>> Board_to_int_board();

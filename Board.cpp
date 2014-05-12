@@ -26,6 +26,8 @@ Board::Board(int id_, int size_)
       board[i].push_back(make_shared<Square>(count++));
     }
   }
+  scramble_board();
+  original_board = board;
 }
 
 void Board::slide_col(int col_num, int slide_amount)
@@ -65,19 +67,27 @@ int Board::convert_neg_to_pos(int neg_val)
   return size + neg_val;
 }
 
+void Board::restore_original()
+{
+  board = original_board;
+  Model::get().notify_state(id, size, Board_to_int_board());
+}
+
+
 void Board::scramble_board()
 {
   /* use random device after debugging */
-  // std::random_device rd;
-  // std::mt19937 gen(rd());
+  // static std::random_device rd;
+  // static std::mt19937 gen(rd());
   static std::mt19937 gen;
   /* number distributions */
+  // make these static?
   // distribution that decides whether to slide a row (0) or a column (1)
-  std::uniform_int_distribution<> row_or_col_bool_dis(0, 1);
+  static std::uniform_int_distribution<> row_or_col_bool_dis(0, 1);
   // distribution that selectrs row/column number
-  std::uniform_int_distribution<> row_col_num_dis(0, size - 1);
+  static std::uniform_int_distribution<> row_col_num_dis(0, size - 1);
   // distribution to decide the amount to slide the row or column
-  std::uniform_int_distribution<> slide_amount_dis(1, size - 1);
+  static std::uniform_int_distribution<> slide_amount_dis(1, size - 1);
 
   /* scramble the board */
 
@@ -90,6 +100,7 @@ void Board::scramble_board()
     else
       slide_row_no_notify(row_col_num, slide_amount);
   }
+  Model::get().notify_state(id, size, Board_to_int_board());
 }
 
 void Board::broadcast_state()

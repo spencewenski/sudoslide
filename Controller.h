@@ -23,6 +23,7 @@ private:
   void slide_col();
   void slide_row();
   void add_board();
+  void restore_original();
 
   void show();
 
@@ -30,6 +31,7 @@ private:
 
   // view is automatically opened
   void open_list_view();
+  void close_list_view();
 };
 
 #endif /*CONTROLLER_H*/
