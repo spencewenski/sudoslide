@@ -118,7 +118,6 @@ void Controller::restore_original()
   board_ptr->restore_original();
 }
 
-
 void Controller::show()
 {
   for (auto view : views)

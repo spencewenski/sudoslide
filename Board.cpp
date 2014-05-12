@@ -124,7 +124,7 @@ void Board::broadcast_state()
 
 Board::Square_vector_t Board::slide_row_no_notify(int row_num, int slide_amount)
 {
-  if (row_num > size)
+  if (row_num >= size || row_num < 0)
     throw Error{"Row does not exist!"};
   if (slide_amount < 0)
     slide_amount = convert_neg_to_pos(slide_amount);
@@ -138,7 +138,7 @@ Board::Square_vector_t Board::slide_row_no_notify(int row_num, int slide_amount)
 
 Board::Square_vector_t Board::slide_col_no_notify(int col_num, int slide_amount)
 {
-  if (col_num > size)
+  if (col_num >= size || col_num < 0)
     throw Error{"Column does not exist!"};
   if (slide_amount < 0)
     slide_amount = convert_neg_to_pos(slide_amount);
