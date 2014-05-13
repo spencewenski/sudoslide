@@ -76,10 +76,6 @@ vector<vector<int>> Board::Board_to_int_board()
 }
 
 
-int Board::convert_neg_to_pos(int neg_val)
-{
-  return size + neg_val;
-}
 
 void Board::restore_original()
 {
@@ -144,7 +140,7 @@ Board::Square_vector_t Board::slide_col_no_notify(int col_num, int slide_amount)
     slide_amount = convert_neg_to_pos(slide_amount);
   Square_vector_t new_col(size);
   for (int i = 0; i < size; ++i) {
-    new_col[(slide_amount + i) % size] = board[i][col_num];
+    new_col[i] = board[(slide_amount + i) % size][col_num];
   }
   for (int i = 0; i < size; ++i) {
     board[i][col_num] = new_col[i];
@@ -152,4 +148,8 @@ Board::Square_vector_t Board::slide_col_no_notify(int col_num, int slide_amount)
   return new_col;
 }
 
+int Board::convert_neg_to_pos(int neg_val)
+{
+  return size + neg_val;
+}
 
