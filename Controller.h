@@ -25,6 +25,7 @@ private:
   void add_board();
   void remove_board();
   void restore_original();
+  void solve_board();
 
   void show();
 

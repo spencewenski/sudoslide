@@ -16,7 +16,11 @@ public:
 
   void slide_col(int col_num, int slide_amount);
   void slide_row(int row_num, int slide_amount);
+
+  void solve();
+  // void solve_instant();
   void restore_original();
+
   
   void broadcast_state();
 
@@ -29,6 +33,13 @@ private:
   int size;
   Board_graph_t board;
   Board_graph_t original_board;
+
+  struct Slide {
+    bool row_col;
+    int row_col_num, slide_amount;
+  };
+  std::vector<Slide> solution;
+  std::vector<Slide> player_slides;
 
   void scramble_board();
   int convert_neg_to_pos(int neg_val);

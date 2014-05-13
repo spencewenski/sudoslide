@@ -23,6 +23,7 @@ Controller::Controller()
   commands["add_board"] = &Controller::add_board;
   commands["remove_board"] = &Controller::remove_board;
   commands["restore_original"] = &Controller::restore_original;
+  commands["solve_board"] = &Controller::solve_board;
   commands["show"] = &Controller::show;
   commands["open_list_view"] = &Controller::open_list_view;
   commands["close_list_view"] = &Controller::close_list_view;
@@ -117,6 +118,14 @@ void Controller::restore_original()
   auto board_ptr = Model::get().get_board(board_id);
   board_ptr->restore_original();
 }
+
+void Controller::solve_board()
+{
+  int board_id = read_int();
+  auto board_ptr = Model::get().get_board(board_id);
+  board_ptr->solve();
+}
+
 
 void Controller::show()
 {

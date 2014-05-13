@@ -46,6 +46,7 @@ bool Board::is_solved()
 
 void Board::slide_col(int col_num, int slide_amount)
 {
+  player_slides.push_back(Slide{true, col_num, slide_amount});
   auto new_col = slide_col_no_notify(col_num, slide_amount);
   Model::get().notify_col(id, col_num, slide_amount, 
     Square_vector_to_int_vector(new_col));
@@ -53,6 +54,7 @@ void Board::slide_col(int col_num, int slide_amount)
 
 void Board::slide_row(int row_num, int slide_amount)
 {
+  player_slides.push_back(Slide{false, row_num, slide_amount});
   auto new_row = slide_row_no_notify(row_num, slide_amount);
   Model::get().notify_row(id, row_num, slide_amount, 
     Square_vector_to_int_vector(new_row));
@@ -74,7 +76,6 @@ vector<vector<int>> Board::Board_to_int_board()
   }
   return int_board;
 }
-
 
 
 void Board::restore_original()
@@ -101,17 +102,34 @@ void Board::scramble_board()
 
   /* scramble the board */
 
+  Slide slide;
   for (int i = 0; i < size * size; ++i) {
-    int row_col_num = row_col_num_dis(gen);
-    int slide_amount = slide_amount_dis(gen);
-    // slide a row or a column depending on the number generator
-    if (row_or_col_bool_dis(gen))
-      slide_col_no_notify(row_col_num, slide_amount);
+    slide.row_col_num = row_col_num_dis(gen);
+    slide.slide_amount = slide_amount_dis(gen);
+    slide.row_col = row_or_col_bool_dis(gen);
+    solution.push_back(slide);
+
+    // true for column, false for row
+    if (slide.row_col)
+      slide_col_no_notify(slide.row_col_num, slide.slide_amount);
     else
-      slide_row_no_notify(row_col_num, slide_amount);
+      slide_row_no_notify(slide.row_col_num, slide.slide_amount);
   }
   Model::get().notify_state(id, size, Board_to_int_board());
 }
+
+void Board::solve()
+{
+  restore_original();
+  for (int i = solution.size(); i-- > 0;) {
+    const auto& slide = solution[i];
+    if (slide.row_col)
+      slide_col(slide.row_col_num, slide.slide_amount * -1);
+    else
+      slide_row(slide.row_col_num, slide.slide_amount * -1);
+  }
+}
+
 
 void Board::broadcast_state()
 {
