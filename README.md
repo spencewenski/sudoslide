@@ -3,7 +3,7 @@ sudoslide
 
 A Rubik's Cube-esque sliding puzzle
 
-# Available commands  
+## Available commands  
 slide_col  
 slide_row  
 add_board  
