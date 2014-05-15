@@ -4,7 +4,7 @@ sudoslide
 A Rubik's Cube-esque sliding puzzle
 
 ## Available commands  
-slide_col  
+slide_col \<board_id\> - slide a column up or down  
 slide_row  
 add_board  
 remove_board  
