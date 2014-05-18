@@ -4,6 +4,8 @@
 #include <vector>
 #include <memory>
 
+#include <iosfwd>
+
 struct Square;
 
 class Board {
@@ -35,9 +37,12 @@ private:
   Board_graph_t original_board;
 
   struct Slide {
-    bool row_col;
+    bool row_col; // true = col, false = row
     int row_col_num, slide_amount;
+    Slide opposite()
+      { return Slide{row_col, row_col_num, slide_amount * -1}; }
   };
+  friend std::ostream& operator<< (std::ostream& os, const Slide& slide);
   std::vector<Slide> solution;
   std::vector<Slide> player_slides;
 
@@ -48,5 +53,7 @@ private:
   Square_vector_t slide_row_no_notify(int row_num, int slide_amount);
   Square_vector_t slide_col_no_notify(int col_num, int slide_amount);
 };
+
+std::ostream& operator<< (std::ostream& os, const Board::Slide& slide);
 
 #endif /*BOARD_H*/

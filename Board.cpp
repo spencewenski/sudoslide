@@ -6,6 +6,9 @@
 using std::vector;
 using std::make_shared;
 
+#include <iostream>
+using std::cout; using std::endl;
+
 // debugging
 // #include <iostream>
 // using std::cout; using std::endl;
@@ -14,6 +17,14 @@ struct Square {
   Square(int num_) : num{num_} {}
   int num;
 };
+
+std::ostream& operator<< (std::ostream& os, const Board::Slide& slide)
+{
+  os << "slide " << (slide.row_col ? "col" : "row") << ' '
+     << slide.row_col_num << ' ' << slide.slide_amount << " units" << endl;
+  return os;
+}
+
 
 
 Board::Board(int id_, int size_)
@@ -98,7 +109,7 @@ void Board::scramble_board()
   // distribution that selectrs row/column number
   static std::uniform_int_distribution<> row_col_num_dis(0, size - 1);
   // distribution to decide the amount to slide the row or column
-  static std::uniform_int_distribution<> slide_amount_dis(1, size - 1);
+  static std::uniform_int_distribution<> slide_amount_dis(-1 * (size - 1), size - 1);
 
   /* scramble the board */
 
@@ -122,11 +133,12 @@ void Board::solve()
 {
   restore_original();
   for (int i = solution.size(); i-- > 0;) {
-    const auto& slide = solution[i];
+    const auto& slide = solution[i].opposite();
+    cout << slide;
     if (slide.row_col)
-      slide_col(slide.row_col_num, slide.slide_amount * -1);
+      slide_col(slide.row_col_num, slide.slide_amount);
     else
-      slide_row(slide.row_col_num, slide.slide_amount * -1);
+      slide_row(slide.row_col_num, slide.slide_amount);
   }
 }
 
