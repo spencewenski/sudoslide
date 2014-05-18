@@ -16,12 +16,14 @@ public:
 
   bool is_solved();
 
-  void slide_col(int col_num, int slide_amount);
-  void slide_row(int row_num, int slide_amount);
+  void slide_col(int col_num, int slide_amount, bool track_slide = true);
+  void slide_row(int row_num, int slide_amount, bool track_slide = true);
 
   void solve();
   // void solve_instant();
   void restore_original();
+
+  void undo();
 
   
   void broadcast_state();
