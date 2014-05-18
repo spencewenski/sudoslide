@@ -12,7 +12,7 @@ using std::cout; using std::endl; using std::cin;
 using std::string;
 using std::make_shared;
 
-const int default_board_size_c = 4;
+// const int default_board_size_c = 4;
 
 static int read_int();
 
@@ -83,7 +83,8 @@ void Controller::slide_row()
 
 void Controller::add_board()
 {
-  auto board_ptr = create_board(default_board_size_c);
+  int board_size = read_int();
+  auto board_ptr = create_board(board_size);
   Model::get().add_board(board_ptr->get_id(), board_ptr);
 }
 

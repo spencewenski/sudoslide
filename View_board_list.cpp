@@ -15,6 +15,7 @@ void View_board_list::draw()
     cout << setw(5) << board_info.second.size;
     cout << endl;
     draw_board(board_info.second.board);
+    cout << endl;
   }
 }
 

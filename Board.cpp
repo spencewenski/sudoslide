@@ -25,19 +25,20 @@ std::ostream& operator<< (std::ostream& os, const Board::Slide& slide)
   return os;
 }
 
-
-
 Board::Board(int id_, int size_)
 : id{id_}, size{size_}, board(size)
 {
-  assert(size > 1);
+  // assert(size > 1);
+  if (size < 2)
+    throw Error{"Size of board is too small!"};
   int count{};
   for (int i = 0; i < size; ++i) {
     for (int j = 0; j < size; ++j) {
       board[i].push_back(make_shared<Square>(count++));
     }
   }
-  scramble_board();
+  int scramble_quality = size * size;
+  scramble_board(scramble_quality);
   original_board = board;
 }
 
@@ -96,7 +97,7 @@ void Board::restore_original()
 }
 
 
-void Board::scramble_board()
+void Board::scramble_board(int scramble_quality)
 {
   /* use random device after debugging */
   // static std::random_device rd;
@@ -107,14 +108,14 @@ void Board::scramble_board()
   // distribution that decides whether to slide a row (0) or a column (1)
   static std::uniform_int_distribution<> row_or_col_bool_dis(0, 1);
   // distribution that selectrs row/column number
-  static std::uniform_int_distribution<> row_col_num_dis(0, size - 1);
+  std::uniform_int_distribution<> row_col_num_dis(0, size - 1);
   // distribution to decide the amount to slide the row or column
-  static std::uniform_int_distribution<> slide_amount_dis(-1 * (size - 1), size - 1);
+  std::uniform_int_distribution<> slide_amount_dis(-1 * (size - 1), size - 1);
 
   /* scramble the board */
 
   Slide slide;
-  for (int i = 0; i < size * size; ++i) {
+  for (int i = 0; i < scramble_quality; ++i) {
     slide.row_col_num = row_col_num_dis(gen);
     slide.slide_amount = slide_amount_dis(gen);
     slide.row_col = row_or_col_bool_dis(gen);
@@ -178,6 +179,9 @@ Board::Square_vector_t Board::slide_col_no_notify(int col_num, int slide_amount)
   return new_col;
 }
 
+/*
+converts a negative slide value into its equivalent positive slide value
+*/
 int Board::convert_neg_to_pos(int neg_val)
 {
   return size + neg_val;

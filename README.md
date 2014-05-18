@@ -33,7 +33,8 @@ exist, column does not exist, unable to read integer values
 left; positive slide_amount for right, negative for left; error: board does not 
 exist, row does not exist, unable to read integer values  
 
-* add_board - create a new board and add to the appropriate views  
+* add_board \<board_size\> - create a new board of the specified size 
+and add to the appropriate views  
 
 * remove_board \<board_id\> - remove a board from the game; error: board does
 not exist, unable to read integer value  

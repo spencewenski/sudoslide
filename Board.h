@@ -46,7 +46,7 @@ private:
   std::vector<Slide> solution;
   std::vector<Slide> player_slides;
 
-  void scramble_board();
+  void scramble_board(int scramble_quality);
   int convert_neg_to_pos(int neg_val);
   std::vector<int> Square_vector_to_int_vector(const Square_vector_t& square_vector);
   std::vector<std::vector<int>> Board_to_int_board();
