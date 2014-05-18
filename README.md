@@ -33,6 +33,8 @@ exist, column does not exist, unable to read integer values
 left; positive slide_amount for right, negative for left; error: board does not 
 exist, row does not exist, unable to read integer values  
 
+* undo \<board_id\> - undo previous moves until; error: no more moves to undo  
+
 * add_board \<board_size\> - create a new board of the specified size 
 and add to the appropriate views  
 
