@@ -3,7 +3,8 @@ Sudoslide
 
 A Rubik's Cube-esque sliding puzzle
 
-## Description
+Description
+-------------------------------
 Sudoslide is a sliding-based puzzle game. It features puzzle mechanics similar
 to a Rubik's cube: trying to solve one part of the puzzle might mess up other
 parts. A board starts out scrambled, and the goal of the game is to rearrange 
@@ -22,7 +23,8 @@ and the solved board would look like this:
      8  9 10 11  
     12 13 14 15  
 
-## Available commands  
+Available commands
+-------------------------------
 + **slide\_col \<board\_id\> \<col\_num\> \<slide\_amount\>**  
      slide a column up or 
      down; positive slide_amount for up, negative for down; error: board does not 
