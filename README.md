@@ -26,36 +26,39 @@ and the solved board would look like this:
 Available commands
 -------------------------------
 + **slide_col \<board_id\> \<col_num\> \<slide_amount\>**  
-     slide a column up or 
-     down; positive slide_amount for up, negative for down; error: board does not 
-     exist, column does not exist, unable to read integer values  
+    slide a column up or 
+    down; positive slide_amount for up, negative for down; error: board does not 
+    exist, column does not exist, unable to read integer values  
 
 + **slide\_row \<board\_id\> \<row\_num\> \<slide\_amount\>**  
-     slide a row right or 
-     left; positive slide_amount for right, negative for left; error: board does not 
-     exist, row does not exist, unable to read integer values  
+    slide a row right or 
+    left; positive slide_amount for right, negative for left; error: board does not 
+    exist, row does not exist, unable to read integer values  
 
 + **add\_board \<board\_size\>**  
-     create a new board of the specified size 
-     and add to the appropriate views  
+    create a new board of the specified size 
+    and add to the appropriate views  
+
++ **undo \<board_id\>**
+    undo previous moves until; error: no more moves to undo  
 
 + **remove\_board \<board\_id\>**  
-     remove a board from the game; error: board does
-     not exist, unable to read integer value  
+    remove a board from the game; error: board does
+    not exist, unable to read integer value  
 
 + **restore\_original \<board\_id\>**  
-     restore a board to its original state;
-     error: board does not exist, unable to read integer value  
+    restore a board to its original state;
+    error: board does not exist, unable to read integer value  
 
 + **solve\_board \<board\_id\>**  
-     solve the board step by step from original state;
-     error: board does not exist, unable to read integer value  
+    solve the board step by step from original state;
+    error: board does not exist, unable to read integer value  
 
 + **show**  
-     display all the open views  
+    display all the open views  
 
 + **open\_list\_view** 
-     open the list view; error: list view already open  
+    open the list view; error: list view already open  
 
 + **close\_list\_view**  
-     close the list view; error: list view is not open  
+    close the list view; error: list view is not open  

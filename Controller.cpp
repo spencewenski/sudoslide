@@ -20,6 +20,7 @@ Controller::Controller()
 {
   commands["slide_col"] = &Controller::slide_col;
   commands["slide_row"] = &Controller::slide_row;
+  commands["undo"] = &Controller::undo;
   commands["add_board"] = &Controller::add_board;
   commands["remove_board"] = &Controller::remove_board;
   commands["restore_original"] = &Controller::restore_original;
@@ -79,6 +80,13 @@ void Controller::slide_row()
   int slide_amount = read_int();
   auto board_ptr = Model::get().get_board(board_id);
   board_ptr->slide_row(row_num, slide_amount);
+}
+
+void Controller::undo()
+{
+  int board_id = read_int();
+  auto board_ptr = Model::get().get_board(board_id);
+  board_ptr->undo();
 }
 
 void Controller::add_board()

@@ -22,6 +22,7 @@ private:
 
   void slide_col();
   void slide_row();
+  void undo();
   void add_board();
   void remove_board();
   void restore_original();

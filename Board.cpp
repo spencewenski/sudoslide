@@ -56,17 +56,19 @@ bool Board::is_solved()
 }
 
 
-void Board::slide_col(int col_num, int slide_amount)
+void Board::slide_col(int col_num, int slide_amount, bool track_slide)
 {
-  player_slides.push_back(Slide{true, col_num, slide_amount});
+  if (track_slide)
+    player_slides.push_back(Slide{true, col_num, slide_amount});
   auto new_col = slide_col_no_notify(col_num, slide_amount);
   Model::get().notify_col(id, col_num, slide_amount, 
     Square_vector_to_int_vector(new_col));
 }
 
-void Board::slide_row(int row_num, int slide_amount)
+void Board::slide_row(int row_num, int slide_amount, bool track_slide)
 {
-  player_slides.push_back(Slide{false, row_num, slide_amount});
+  if (track_slide)
+    player_slides.push_back(Slide{false, row_num, slide_amount});
   auto new_row = slide_row_no_notify(row_num, slide_amount);
   Model::get().notify_row(id, row_num, slide_amount, 
     Square_vector_to_int_vector(new_row));
@@ -93,6 +95,7 @@ vector<vector<int>> Board::Board_to_int_board()
 void Board::restore_original()
 {
   board = original_board;
+  player_slides.clear();
   Model::get().notify_state(id, size, Board_to_int_board());
 }
 
@@ -137,10 +140,22 @@ void Board::solve()
     const auto& slide = solution[i].opposite();
     cout << slide;
     if (slide.row_col)
-      slide_col(slide.row_col_num, slide.slide_amount);
+      slide_col(slide.row_col_num, slide.slide_amount, false);
     else
-      slide_row(slide.row_col_num, slide.slide_amount);
+      slide_row(slide.row_col_num, slide.slide_amount, false);
   }
+}
+
+void Board::undo()
+{
+  if (player_slides.empty())
+    throw Error{"No moves to undo!"};
+  auto slide = player_slides.back().opposite();
+  player_slides.pop_back();
+  if (slide.row_col)
+    slide_col(slide.row_col_num, slide.slide_amount, false);
+  else
+    slide_row(slide.row_col_num, slide.slide_amount, false);
 }
 
 
