@@ -4,27 +4,25 @@ Sudoslide
 A Rubik's Cube-esque sliding puzzle
 
 ## Description
--------------------------------
 Sudoslide is a sliding-based puzzle game. It features puzzle mechanics similar
 to a Rubik's cube: trying to solve one part of the puzzle might mess up other
 parts. A board starts out scrambled, and the goal of the game is to rearrange 
 the numbers on the board so they are in order. For example, 
 for a board of size 4, it would start out looking something like this:  
 
- 4  3 10  1  
-11  2  8  5  
- 6 12  7 13  
-14  9 15  0  
+     4  3 10  1  
+    11  2  8  5  
+     6 12  7 13  
+    14  9 15  0  
 
 and the solved board would look like this:  
 
- 0  1  2  3  
- 4  5  6  7  
- 8  9 10 11  
-12 13 14 15  
+     0  1  2  3  
+     4  5  6  7  
+     8  9 10 11  
+    12 13 14 15  
 
 ## Available commands  
--------------------------------
 * slide_col \<board_id\> \<col_num\> \<slide_amount\> - slide a column up or 
 down; positive slide_amount for up, negative for down; error: board does not 
 exist, column does not exist, unable to read integer values  
