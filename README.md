@@ -59,8 +59,8 @@ Available commands
 ``` show ```  
   display all the open views  
 
-```open_list_view``` 
+``` open_list_view ```  
   open the list view; error: list view already open  
 
-```close_list_view```  
+``` close_list_view ```  
   close the list view; error: list view is not open  
