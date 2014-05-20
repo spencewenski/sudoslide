@@ -25,6 +25,11 @@ and the solved board would look like this:
 
 Available commands
 -------------------------------
+- ```slide_col <board_id> <col_num> <slide_amount>```  
+	slide a column up or 
+  down; positive slide_amount for up, negative for down; error: board does not 
+  exist, column does not exist, unable to read integer values
+
 + **slide_col \<board_id\> \<col_num\> \<slide_amount\>**  
      slide a column up or 
      down; positive slide_amount for up, negative for down; error: board does not 
