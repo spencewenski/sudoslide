@@ -56,7 +56,7 @@ Available commands
 	solve the board step by step from original state;
 	error: board does not exist, unable to read integer value  
 
-```show```
+```show```  
 	display all the open views  
 
 ```show```  
