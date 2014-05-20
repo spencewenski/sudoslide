@@ -25,40 +25,49 @@ and the solved board would look like this:
 
 Available commands
 -------------------------------
-+ **slide_col \<board_id\> \<col_num\> \<slide_amount\>**  
-    slide a column up or 
-    down; positive slide_amount for up, negative for down; error: board does not 
-    exist, column does not exist, unable to read integer values  
+``` slide_col <board_id> <col_num> <slide_amount> ```  
+  slide a column up or down; positive slide_amount for up, negative for down;  
+  error: board does not exist, column does not exist, unable to read integer 
+  values
 
-+ **slide\_row \<board\_id\> \<row\_num\> \<slide\_amount\>**  
-    slide a row right or 
-    left; positive slide_amount for right, negative for left; error: board does not 
-    exist, row does not exist, unable to read integer values  
+``` slide_col <board_id> <col_num> <slide_amount> ```  
+  slide a column up or down; positive slide_amount for up, negative for down;  
+  error: board does not exist, column does not exist, unable to read integer 
+  values  
 
-+ **add\_board \<board\_size\>**  
-    create a new board of the specified size 
-    and add to the appropriate views  
+``` slide_row <board_id> <row_num> <slide_amount> ```  
+  slide a row right or left; positive slide_amount for right, negative 
+  for left;  
+  error: board does not exist, row does not exist, unable to read integer 
+  values  
 
-+ **undo \<board_id\>**
-    undo previous moves until; error: no more moves to undo  
+``` undo <board_id> ```  
+  undo previous slides until there are no more slides to undo;  
+  error: no more moves to undo  
 
-+ **remove\_board \<board\_id\>**  
-    remove a board from the game; error: board does
-    not exist, unable to read integer value  
+``` add_board <board_size> ```  
+  create a new board of the specified size and add to the appropriate views  
 
-+ **restore\_original \<board\_id\>**  
-    restore a board to its original state;
-    error: board does not exist, unable to read integer value  
+``` remove_board <board_id> ```  
+  remove a board from the game;  
+  error: board does not exist, unable to read integer value  
 
-+ **solve\_board \<board\_id\>**  
-    solve the board step by step from original state;
-    error: board does not exist, unable to read integer value  
+``` restore_original <board_id> ```  
+  restore a board to its original state;  
+  error: board does not exist, unable to read integer value  
 
-+ **show**  
-    display all the open views  
+``` solve_board <board_id> ```  
+  solve the board step by step from original state;  
+  error: board does not exist, unable to read integer value  
 
-+ **open\_list\_view** 
-    open the list view; error: list view already open  
+``` show ```  
+  display all the open views  
 
-+ **close\_list\_view**  
-    close the list view; error: list view is not open  
+``` open_list_view ```  
+  open the list view; error: list view already open  
+
+``` close_list_view ```  
+  close the list view; error: list view is not open  
+
+    
+    
