@@ -30,19 +30,19 @@ Available commands
   down; positive slide_amount for up, negative for down; error: board does not 
   exist, column does not exist, unable to read integer values
 
-- ```slide_col \<board_id\> \<col_num\> \<slide_amount\>```  
+```slide_col \<board_id\> \<col_num\> \<slide_amount\>```  
 	slide a column up or 
 	down; positive slide_amount for up, negative for down; error: board does not 
 	exist, column does not exist, unable to read integer values  
 
-+ **slide\_row \<board\_id\> \<row\_num\> \<slide\_amount\>**  
-     slide a row right or 
-     left; positive slide_amount for right, negative for left; error: board does not 
-     exist, row does not exist, unable to read integer values  
+- ```slide_row <board_id> <row_num> <slide_amount>```  
+	slide a row right or 
+	left; positive slide_amount for right, negative for left; error: board does not 
+	exist, row does not exist, unable to read integer values  
 
-+ **add\_board \<board\_size\>**  
-     create a new board of the specified size 
-     and add to the appropriate views  
+- ```add_board <board_size>```  
+	create a new board of the specified size 
+	and add to the appropriate views  
 
 + **remove\_board \<board\_id\>**  
      remove a board from the game; error: board does
