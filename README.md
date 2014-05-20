@@ -26,44 +26,44 @@ and the solved board would look like this:
 Available commands
 -------------------------------
 ```slide_col <board_id> <col_num> <slide_amount>```  
-	slide a column up or 
+  slide a column up or 
   down; positive slide_amount for up, negative for down; error: board does not 
   exist, column does not exist, unable to read integer values
 
 ```slide_col <board_id> <col_num> <slide_amount>```  
-	slide a column up or 
-	down; positive slide_amount for up, negative for down; error: board does not 
-	exist, column does not exist, unable to read integer values  
+  slide a column up or 
+  down; positive slide_amount for up, negative for down; error: board does not 
+  exist, column does not exist, unable to read integer values  
 
 ```slide_row <board_id> <row_num> <slide_amount>```  
-	slide a row right or 
-	left; positive slide_amount for right, negative for left; error: board does not 
-	exist, row does not exist, unable to read integer values  
+  slide a row right or 
+  left; positive slide_amount for right, negative for left; error: board does not 
+  exist, row does not exist, unable to read integer values  
 
 ```add_board <board_size>```  
-	create a new board of the specified size 
-	and add to the appropriate views  
+  create a new board of the specified size 
+  and add to the appropriate views  
 
 ```remove_board <board_id>```  
-	remove a board from the game; error: board does
-	not exist, unable to read integer value  
+  remove a board from the game; error: board does
+  not exist, unable to read integer value  
 
 ```restore_original <board_id>```  
-	restore a board to its original state;
-	error: board does not exist, unable to read integer value  
+  restore a board to its original state;
+  error: board does not exist, unable to read integer value  
 
 ```solve_board <board_id>```  
-	solve the board step by step from original state;
-	error: board does not exist, unable to read integer value  
+  solve the board step by step from original state;
+  error: board does not exist, unable to read integer value  
 
 ```show```  
-	display all the open views  
+  display all the open views  
 
 ```show```  
-	display all the open views  
+  display all the open views  
 
 ```open_list_view``` 
-	open the list view; error: list view already open  
+  open the list view; error: list view already open  
 
 ```close_list_view```  
-	close the list view; error: list view is not open  
+  close the list view; error: list view is not open  
