@@ -1,62 +1,117 @@
 # compiler
-CC = g++
+CC := g++
 # linker
-LD = g++
-# compiler flags
-CFLAGS = -std=c++11 -Wall -Wextra -pedantic -Wvla -c
-# linker flags
-LDFLAGS = -pedantic -Wall
+LD := g++
+# preprocessor flags
+CPPFLAGS :=
+# main compiler flags
+CCFLAGS := -std=c++11 -Wall -Wextra -pedantic -Wvla
+# extra compiler flags
+ECCFLAGS := 
+# main linker flags
+LDFLAGS := -pedantic -Wall
+# extra linker flags
+ELDFLAGS := 
 # erase files command
-RM = rm -f
-# list of object files
-OBJS = main.o Controller.o Model.o Utility.o Board.o Board_factory.o \
-	View.o View_board_list.o
-# list of dependency files
-DEPS = $(OBJS:.o=.d)
+RM := rm -f
 # executable name
-PROG = sudoslide
+PROG := a.out
+# executables for test cases
+TEST_EXEC := $(wildcard test*.out)
+# source files
+SOURCES := $(wildcard *.c *.cpp)
+SOURCES := $(filter-out $(wildcard test*), $(SOURCES))
+# pre-compiled object files to link against
+LINKEDOBJS := 
+# object files for each source file
+OBJS := $(patsubst %.c, %.o, $(filter %.c, $(SOURCES)))
+OBJS += $(patsubst %.cpp, %.o, $(filter %.cpp, $(SOURCES)))
+# all objects except for main.o
+OBJS_MINUS_MAIN := $(filter-out main.o, $(OBJS))
+# dependency files
+DEPS = $(OBJS:%.o=%.d)
 
 # use quiet output
 ifneq ($(findstring $(MAKEFLAGS),s),s)
 ifndef V
-	QUIET_CC       	= @echo '   ' CC $<;
-	QUIET_LINK			= @echo '   ' LD $<;
+	QUIET_CC		= @echo '   ' CC $@;
+	QUIET_LINK		= @echo '   ' LD $@;
+	export V
 endif
 endif
 
 # top-level rule
-all: release
+all: $(PROG)
 # debug rule
-debug: CFLAGS += -g
+debug: CCFLAGS += -g
 debug: $(PROG)
 # optimize rule
-opt: CFLAGS += -O3
-opt: release
+opt: CCFLAGS += -O3
+opt: $(PROG)
 # uncomment the following line to treat warnings as errors
-# release: CFLAGS += -Werror
+release: opt
+release: CPPFLAGS += -D NDEBUG
 release: $(PROG)
 # gprof rule
-gprof: CFLAGS += -g -pg
+gprof: CCFLAGS += -g -pg
 gprof: $(PROG)
 # uncomment the following line to delete object files and .d files automatically
 # release: clean
 
 # rule to link program
 $(PROG): $(OBJS)
-	$(QUIET_LINK)$(LD) $(LDFLAGS) $(OBJS) -o $(PROG)
+	$(QUIET_LINK)$(LD) $(OBJS) $(LDFLAGS) $(LINKEDOBJS) $(ELDFLAGS) $(CPPFLAGS) -o $(PROG)
 
 # rule to compile object files and automatically generate dependency files
-%.o: %.cpp
-	$(QUIET_CC)$(CC) $(CFLAGS) $< -MMD > $*.d
+define cc-command
+	$(QUIET_CC)$(CC) $(CCFLAGS) $(ECCFLAGS) $(CPPFLAGS) -c $< -MMD > $*.d
+endef
+# compile .c files
+.c.o:
+	$(cc-command)
+# compile .cpp files
+.cpp.o:
+	$(cc-command)
+# compile .cc files
+.cc.o:
+	$(cc-command)
 
 # include dependency files
 -include $(DEPS)
 
+# clean up targets
+.PHONY: clean cleanAll cleanObj cleanTests
+# remove object files and dependency files, but keep the executable
 clean:
 	$(RM) $(OBJS) $(DEPS)
 
+# remove all generated files
 cleanAll:
 	$(RM) $(PROG) $(OBJS) $(DEPS)
 
+# only remove the object files
 cleanObj:
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) $(OBJS_TESTS)
+
+cleanTests:
+	$(RM) $(OBJS_TESTS) $(TEST_EXEC) $(wildcard *.output)
+
+# tests
+# .PHONY: test_name
+# test_name: $(OBJS_MINUS_MAIN)
+# 	$(QUIET_CC)$(CC) $(CCFLAGS) $(ECCFLAGS) test_name.cpp $(OBJS_MINUS_MAIN) $(LINKEDOBJS) $(ELDFLAGS) -o test_name.out
+
+# compile tests
+# .PHONY: compile_tests
+# compile_tests: test_name
+
+# generate expected output for tests
+# .PHONY: test_get_expected_output
+# test_get_expected_output:
+# 	./test_name.out > test_name.expected
+
+# .PHONY: run_tests
+# run_tests: compile_tests
+# run_tests:
+# 	./test_name.out > test_name.output
+# 	diff test_name.output test_name.expected
