@@ -68,6 +68,3 @@ Available commands
 
 ``` close_list_view ```  
   close the list view; error: list view is not open  
-
-    
-    
