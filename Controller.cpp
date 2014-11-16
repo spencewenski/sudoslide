@@ -71,6 +71,9 @@ void Controller::slide_col()
   int slide_amount = read_int();
   auto board_ptr = Model::get().get_board(board_id);
   board_ptr->slide_col(col_num, slide_amount);
+  if (board_ptr->is_solved()) {
+    cout << "Solved!" << endl;
+  }
 }
 
 void Controller::slide_row()
@@ -80,6 +83,9 @@ void Controller::slide_row()
   int slide_amount = read_int();
   auto board_ptr = Model::get().get_board(board_id);
   board_ptr->slide_row(row_num, slide_amount);
+  if (board_ptr->is_solved()) {
+    cout << "Solved!" << endl;
+  }
 }
 
 void Controller::undo()
