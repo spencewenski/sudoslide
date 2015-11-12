@@ -67,19 +67,20 @@ void Controller::help()
 {
   // description
   cout << "\nDESCRIPTION" << endl;
-  cout << "\tSudoslide is a sliding-based puzzle game. It features puzzle mechanics similar"
-       << "\tto a Rubik's cube: trying to solve one part of the puzzle might mess up other\n"
-       << "\tparts. A board starts out scrambled, and the goal of the game is to rearrange\n"
-       << "\tthe numbers on the board so they are in order. For example,\n"
-       << "\tfor a board of size 4, it would start out looking something like this:\n\n"
-         << "\t\t4  3  10 1\n"
-         << "\t\t11 2  8  5\n"
-         << "\t\t6  12 7  13\n"
-         << "\t\t14 9  15 0\n\n"
+  cout << "\tSudoslide is a sliding-based puzzle game. It features puzzle\n"
+       << "\tmechanics similar to a Rubik's cube: trying to solve one part of\n"
+       << "\tthe puzzle might mess up other parts. A board starts out\n"
+       << "\tscrambled, and the goal of the game is to rearrange the numbers\n"
+       << "\ton the board so they are in order. For example, for a board of\n"
+       << "\tsize 4, it would start out looking something like this:\n\n"
+         << "\t\t 4  3 10  1\n"
+         << "\t\t11  2  8  5\n"
+         << "\t\t 6 12  7 13\n"
+         << "\t\t14  9 15  0\n\n"
        << "\tand the solved board would look like this:\n\n"
-         << "\t\t0  1  2  3\n"
-         << "\t\t4  5  6  7\n"
-         << "\t\t8  9  10 11\n"
+         << "\t\t 0  1  2  3\n"
+         << "\t\t 4  5  6  7\n"
+         << "\t\t 8  9 10 11\n"
          << "\t\t12 13 14 15" << endl;
   // commands
   cout << "\nCOMMANDS" << endl;
