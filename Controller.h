@@ -20,6 +20,8 @@ private:
   Command_map_t commands;
   View_list_t views;
 
+  void help();
+
   void slide_col();
   void slide_row();
   void undo();

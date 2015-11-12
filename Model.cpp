@@ -29,7 +29,7 @@ Model::Board_ptr_t Model::get_board(int id)
 
 void Model::add_board(int id, Board_ptr_t board_ptr)
 {
-  assert((!does_board_exist(id), "Board already exists!"));
+  assert(!does_board_exist(id));
   boards[id] = board_ptr;
   board_ptr->broadcast_state();
 }

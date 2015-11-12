@@ -34,7 +34,6 @@ private:
 
   Board_map_t boards;
   View_map_t views;
-  int board_count{};
 
   void notify_remove(int id);
 

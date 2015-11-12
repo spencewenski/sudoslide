@@ -12,12 +12,11 @@ using std::cout; using std::endl; using std::cin;
 using std::string;
 using std::make_shared;
 
-// const int default_board_size_c = 4;
-
 static int read_int();
 
 Controller::Controller()
 {
+  commands["help"] = &Controller::help;
   commands["slide_col"] = &Controller::slide_col;
   commands["slide_row"] = &Controller::slide_row;
   commands["undo"] = &Controller::undo;
@@ -62,6 +61,56 @@ void Controller::run()
       return;
     }
   }
+}
+
+void Controller::help()
+{
+  // help
+  cout << "\nhelp" << endl;
+  cout << "\tdisplay this screen" << endl;
+  // slide_col
+  cout << "\nslide_col <board_id> <col_num> <slide_amount>" << endl;
+  cout << "\tslide a column up or down; positive slide_amount for up,\n"
+       << "\tnegative for down\n"
+       << "\terror: board does not exist, column does not exist, unable to\n"
+       << "\tread integer values" << endl;
+  // slide_row
+  cout << "\nslide_row <board_id> <row_num> <slide_amount>" << endl;
+  cout << "\tslide a row right or left; positive slide_amount for right,\n"
+       << "\tnegative for left;\n"
+       << "\terror: board does not exist, row does not exist, unable to read\n"
+       << "\tinteger values" << endl;
+  // undo
+  cout << "\nundo <board_id>" << endl;
+  cout << "\tundo previous slides until there are no more slides to undo;\n"
+       << "\terror: no more moves to undo" << endl;
+  // add_board
+  cout << "\nadd_board <board_size>" << endl;
+  cout << "\tcreate a new board of the specified size and add to the\n"
+       << "\tappropriate views" << endl;
+  // remove_board
+  cout << "\nremove_board <board_id>" << endl;
+  cout << "\tremove a board from the game;\n"
+       << "\terror: board does not exist, unable to read integer value" << endl;
+  // restore_original
+  cout << "\nrestore_original <board_id>" << endl;
+  cout << "\trestore a board to its original state;\n"
+       << "\terror: board does not exist, unable to read integer value" << endl;
+  // solve_board
+  cout << "\nsolve_board <board_id>" << endl;
+  cout << "\tsolve the board step by step from original state;\n"
+       << "\terror: board does not exist, unable to read integer value" << endl;
+  // shoe
+  cout << "\nshow" << endl;
+  cout << "\tdisplay all the open views" << endl;
+  // open_list_view
+  cout << "\nopen_list_view" << endl;
+  cout << "\topen the list view;\n"
+       << "\terror: list view already open" << endl;
+  // close_list_view
+  cout << "\nclose_list_view" << endl;
+  cout << "\tclose the list view;\n"
+       << "\terror: list view is not open" << endl;
 }
 
 void Controller::slide_col()

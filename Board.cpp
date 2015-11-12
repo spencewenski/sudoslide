@@ -55,7 +55,6 @@ bool Board::is_solved()
   return true;
 }
 
-
 void Board::slide_col(int col_num, int slide_amount, bool track_slide)
 {
   if (track_slide)
@@ -110,7 +109,7 @@ void Board::scramble_board(int scramble_quality)
   // make these static?
   // distribution that decides whether to slide a row (0) or a column (1)
   static std::uniform_int_distribution<> row_or_col_bool_dis(0, 1);
-  // distribution that selectrs row/column number
+  // distribution that selects row/column number
   std::uniform_int_distribution<> row_col_num_dis(0, size - 1);
   // distribution to decide the amount to slide the row or column
   std::uniform_int_distribution<> slide_amount_dis(-1 * (size - 1), size - 1);
